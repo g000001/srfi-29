@@ -116,7 +116,7 @@
                                                   (string (car fl)) )))))))
                         (:else
                          (case (cadr format-list)
-                           ((#\a)
+                           ((#\a #\A)
                             (cond (object-override
                                    (progn
                                      (display object-override buffer)
@@ -128,7 +128,7 @@
                                      (display (car objects) buffer)
                                      (loop (cddr format-list)
                                            (cdr objects) nil)))))
-                           ((#\s)
+                           ((#\s #\S)
                             (cond (object-override
                                    (progn
                                      (display object-override buffer)
