@@ -7,7 +7,8 @@
   :depends-on (:fiveam
                :srfi-5
                :srfi-6
-               :srfi-23)
+               :srfi-23
+               :srfi-61)
   :components ((:file "package")
                (:file "util")
                (:file "srfi-29")
