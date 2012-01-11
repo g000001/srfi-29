@@ -64,11 +64,11 @@
                   (cons (car ls) (rdc (cdr ls))) )))
            (find-bundle
             (lambda (specifier template-name)
-              (srfi:cond ((assoc specifier *localization-bundles* :test #'equal)
-                          :=> #'values)
-                         ((null? specifier) nil)
-                         (:else (find-bundle (rdc specifier)
-                                          template-name ))))))
+              (srfi-61:cond ((assoc specifier *localization-bundles* :test #'equal)
+                             :=> #'values)
+                            ((null? specifier) nil)
+                            (:else (find-bundle (rdc specifier)
+                                                template-name ))))))
     (lambda (package-name template-name)
       (declare (optimize (debug 0)))
       (let loop ((specifier (cons package-name
@@ -77,10 +77,10 @@
            (and (not (null? specifier))
                 (let ((bundle (find-bundle specifier template-name)))
                   (and bundle
-                       (srfi:cond ((assoc template-name bundle :test #'eq)
-                                   :=> #'cdr )
-                                  ((null? (cdr specifier)) nil)
-                                  (:else (loop (rdc specifier))) ))))))))
+                       (srfi-61:cond ((assoc template-name bundle :test #'eq)
+                                      :=> #'cdr )
+                                     ((null? (cdr specifier)) nil)
+                                     (:else (loop (rdc specifier))) ))))))))
 
 ;;An SRFI-28 and SRFI-29 compliant version of format.  It requires
 ;;SRFI-23 for error reporting.
