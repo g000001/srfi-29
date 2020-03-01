@@ -1,4 +1,5 @@
-* SRFI-29: Localization
+# SRFI 29 for CL: Localization 
+
 - Copyright (C) Scott G. Miller (2002). All Rights Reserved.
 
 This document and translations of it may be copied and furnished to

@@ -1,27 +1,29 @@
-(cl:in-package :srfi-29.internal)
+(cl:in-package "https://github.com/g000001/srfi-29#internals")
 
-(def-suite srfi-29)
 
-(in-suite srfi-29)
+(def-suite* srfi-29)
+
 
 (let ((translations
        '(((en) . ((time . "Its ~a, ~a.")
-                (goodbye . "Goodbye, ~a.")))
+                  (goodbye . "Goodbye, ~a.")))
          ((fr) . ((time . "~1@*~a, c'est ~a.")
-                (goodbye . "Au revoir, ~a."))))))
+                  (goodbye . "Au revoir, ~a."))))))
   (mapc (lambda (translation)
-              (let ((bundle-name (cons 'hello-program (car translation))))
-                (if (not (load-bundle! bundle-name))
-                    (progn
-                     (declare-bundle! bundle-name (cdr translation))
-                     (store-bundle! bundle-name)))))
-             translations))
+          (let ((bundle-name (cons 'hello-program (car translation))))
+            (if (not (load-bundle! bundle-name))
+                (progn
+                  (declare-bundle! bundle-name (cdr translation))
+                  (store-bundle! bundle-name)))))
+        translations))
+
 
 (define-function localized-message
   (lambda (message-name . args)
     (apply #'format (cons (localized-template 'hello-program
                                               message-name)
                           args))))
+
 
 (test en-fr
   (let ((loc (current-language)))
@@ -57,4 +59,4 @@ Au revoir, Fred.
 ;; Fred, c'est 12:00.
 ;; Au revoir, Fred.
 
-;;; eof
+;;; *EOF*

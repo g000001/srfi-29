@@ -1,4 +1,5 @@
-(cl:in-package :srfi-29.internal)
+(cl:in-package "https://github.com/g000001/srfi-29#internals")
+
 
 (progn
   (setf (fdefinition 'eq?) #'eq)
@@ -21,28 +22,38 @@
   (setf (fdefinition 'char-numeric?) #'digit-char-p)
   )
 
+
 (defmacro set! (var val)
   `(setq ,var ,val))
 
+
 (declaim (inline list-tail vector-set! list-ref vector->list list->vector
                  quotient))
+
+
 (defun quotient (x y)
   (values (truncate x y)))
+
 
 (defun list-tail (list k)
   (nthcdr k list))
 
+
 (defun list-ref (list k)
   (nth k list))
+
 
 (defun vector-set! (vec index val)
   (setf (aref vec index) val))
 
+
 (defun vector->list (vec)
   (coerce vec 'list))
 
+
 (defun list->vector (list)
   (coerce list 'vector))
+
 
 (defun to-proper-lambda-list (list)
   (typecase list
@@ -55,9 +66,11 @@
                     ,(cdr last)))))
     (symbol `(cl:&rest ,list))))
 
+
 (defmacro lambda (args &rest body)
   `(cl:lambda ,(to-proper-lambda-list args)
      ,@body))
+
 
 (defmacro letrec ((&rest binds) &body body)
   `(let (,@(mapcar (cl:lambda (x)
@@ -74,6 +87,7 @@
        (psetq ,@(apply #'append binds))
        ,@body)))
 
+
 (defmacro define-function (name-args &body body)
   (if (consp name-args)
       (destructuring-bind (name . args)
@@ -84,20 +98,31 @@
          (setf (fdefinition ',name-args)
                ,(car body)))))
 
+
 (declaim (inline vector-ref))
+
+
 (defun vector-ref (vec k)
   (svref vec k))
 
+
 (declaim (inline modulo))
+
+
 (defun modulo (x y)
   (mod x y))
 
+
 (declaim (inline string->list))
+
+
 (defun string->list (string)
   (coerce string 'list))
 
+
 (defun string->number (string)
   (the number (values (read-from-string string))))
+
 
 (defmacro functionlet ((&rest definitions) &body body)
   (do ((def definitions (cdr def))
@@ -112,4 +137,6 @@
           (declare (optimize (debug 0)))
           ,@body))))
 
-;;; eof
+
+;;; *EOF*
+
